@@ -51,15 +51,19 @@ function App() {
       }
     } catch (error) {
       console.error('Error fetching user details:', error)
+      setLoading(false)
     }
   }
 
   useEffect(() => {
     const unsubscribe = blink.auth.onAuthStateChanged((state) => {
+      console.log('Auth state changed:', state)
       if (state.user) {
+        console.log('User authenticated:', state.user.id)
         // Fetch user details from database
         fetchUserDetails(state.user.id)
       } else {
+        console.log('User not authenticated')
         setUser(null)
       }
       setLoading(state.isLoading)
@@ -74,15 +78,31 @@ function App() {
   if (!user) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-primary mb-4">CineBooker</h1>
-          <p className="text-muted-foreground mb-8">Please sign in to continue</p>
-          <button
-            onClick={() => blink.auth.login()}
-            className="bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            Sign In
-          </button>
+        <div className="text-center max-w-md mx-auto p-8">
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold text-primary mb-2">🎬 CineBooker</h1>
+            <p className="text-muted-foreground">Your premium cinema booking experience</p>
+          </div>
+          
+          <div className="space-y-4">
+            <p className="text-lg">Please sign in to continue</p>
+            <button
+              onClick={() => {
+                try {
+                  blink.auth.login()
+                } catch (error) {
+                  console.error('Login error:', error)
+                }
+              }}
+              className="w-full bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium"
+            >
+              Sign In with Blink
+            </button>
+            
+            <p className="text-sm text-muted-foreground">
+              New to CineBooker? Sign up automatically when you first sign in!
+            </p>
+          </div>
         </div>
       </div>
     )
