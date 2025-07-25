@@ -40,10 +40,10 @@ export default function HomePage() {
   const [theaters, setTheaters] = useState<Theater[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCity, setSelectedCity] = useState('')
-  const [selectedLanguage, setSelectedLanguage] = useState('')
-  const [selectedGenre, setSelectedGenre] = useState('')
-  const [selectedFormat, setSelectedFormat] = useState('')
+  const [selectedCity, setSelectedCity] = useState('all-cities')
+  const [selectedLanguage, setSelectedLanguage] = useState('all-languages')
+  const [selectedGenre, setSelectedGenre] = useState('all-genres')
+  const [selectedFormat, setSelectedFormat] = useState('all-formats')
 
   const fetchMovies = async () => {
     try {
@@ -77,8 +77,8 @@ export default function HomePage() {
 
   const filteredMovies = movies.filter(movie => {
     const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesLanguage = !selectedLanguage || movie.language === selectedLanguage
-    const matchesGenre = !selectedGenre || movie.genre === selectedGenre
+    const matchesLanguage = !selectedLanguage || selectedLanguage === 'all-languages' || movie.language === selectedLanguage
+    const matchesGenre = !selectedGenre || selectedGenre === 'all-genres' || movie.genre === selectedGenre
     return matchesSearch && matchesLanguage && matchesGenre
   })
 
@@ -171,7 +171,7 @@ export default function HomePage() {
                   <SelectValue placeholder="City" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Cities</SelectItem>
+                  <SelectItem value="all-cities">All Cities</SelectItem>
                   {cities.map(city => (
                     <SelectItem key={city} value={city}>{city}</SelectItem>
                   ))}
@@ -183,7 +183,7 @@ export default function HomePage() {
                   <SelectValue placeholder="Language" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Languages</SelectItem>
+                  <SelectItem value="all-languages">All Languages</SelectItem>
                   {languages.map(language => (
                     <SelectItem key={language} value={language}>{language}</SelectItem>
                   ))}
@@ -195,7 +195,7 @@ export default function HomePage() {
                   <SelectValue placeholder="Genre" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Genres</SelectItem>
+                  <SelectItem value="all-genres">All Genres</SelectItem>
                   {genres.map(genre => (
                     <SelectItem key={genre} value={genre}>{genre}</SelectItem>
                   ))}
@@ -207,7 +207,7 @@ export default function HomePage() {
                   <SelectValue placeholder="Format" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Formats</SelectItem>
+                  <SelectItem value="all-formats">All Formats</SelectItem>
                   <SelectItem value="2D">2D</SelectItem>
                   <SelectItem value="3D">3D</SelectItem>
                   <SelectItem value="IMAX">IMAX</SelectItem>
