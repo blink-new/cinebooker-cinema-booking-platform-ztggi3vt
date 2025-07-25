@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: 345 83% 47%;
+  --accent: 45 93% 47%;
+  --background: 0 0% 6%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 10%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 10%;
+  --popover-foreground: 0 0% 98%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 63%;
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 345 83% 47%;
+  --radius: 0.5rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-family: Inter, sans-serif;
+}
+
+.cinema-gradient {
+  background: linear-gradient(135deg, #E50914 0%, #B20710 100%);
+}
+
+.seat-available {
+  @apply bg-gray-600 hover:bg-gray-500 cursor-pointer transition-colors;
+}
+
+.seat-selected {
+  @apply bg-yellow-500 hover:bg-yellow-400;
+}
+
+.seat-occupied {
+  @apply bg-red-600 cursor-not-allowed;
+}
+
+.seat-premium {
+  @apply border-2 border-yellow-400;
+}
+
+.movie-card {
+  @apply bg-card rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+}
+
+.glass-effect {
+  @apply bg-black/20 backdrop-blur-md border border-white/10;
+}
